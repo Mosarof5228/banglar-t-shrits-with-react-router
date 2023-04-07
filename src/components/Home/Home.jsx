@@ -9,6 +9,19 @@ const Home = () => {
 
     const handleAddToCart = (tshirt) => {
         console.log(tshirt)
+        const exist = cart.find(product => product._id === tshirt._id);
+        if (exist) {
+            alert("already exist")
+        } else {
+            const newCart = [...cart, tshirt];
+            setCart(newCart)
+        }
+
+
+    }
+    const handleRemoveFromCart = (id) => {
+        const remaining = cart.filter(product => product._id !== id);
+        setCart(remaining)
 
     }
     const tshirts = useLoaderData();
@@ -24,8 +37,12 @@ const Home = () => {
                     ></TShirt>)
                 }
             </div>
-            <div className='col-span-4 mr-4 md:mr-7 border border-gray-600 bg-gray-50'>
-                <Cart></Cart>
+            <div className='col-span-4 mr-4 md:mr-7 border border-gray-600 bg-gray-50 '>
+                <Cart
+                    cart={cart}
+                    handleRemoveFromCart={handleRemoveFromCart}
+
+                ></Cart>
             </div>
         </div>
     );
